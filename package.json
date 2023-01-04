@@ -26,18 +26,18 @@
     "subtlecrypto"
   ],
   "author": "UmamiAppearance",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/UmamiAppearance/SHAObj/issues",
     "email": "mail@umamiappearance.eu"
   },
   "homepage": "https://github.com/UmamiAppearance/SHAObj#readme",
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.1.0",
-    "base-ex": "^0.6.1",
-    "eslint": "^8.29.0",
+    "@rollup/plugin-terser": "^0.2.1",
+    "base-ex": "^0.7.0",
+    "eslint": "^8.31.0",
     "http-server": "^14.1.1",
-    "no-bro-cote": "^0.2.7",
-    "rollup": "^3.7.1"
+    "no-bro-cote": "^0.2.10",
+    "rollup": "^3.9.1"
   }
 }
