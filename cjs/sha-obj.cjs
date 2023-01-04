@@ -1,15 +1,20 @@
+'use strict';
+
+var baseEx = require('base-ex');
+
 /**
- * [BrowserSHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
+ * [SHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
  *
- * @version 0.3.3
+ * @version 1.0.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license GPL-3.0
  */
 
-import { BaseEx } from "../node_modules/base-ex/src/base-ex.js";
-
 const ALGORITHMS = ["SHA-1", "SHA-256", "SHA-384", "SHA-512"];
-const BASE_EX = new BaseEx();
+const BASE_EX = baseEx.BaseEx ? new baseEx.BaseEx() : undefined;
+const CRYPTO = typeof window !== "undefined"
+    ? window.crypto
+    : globalThis.crypto;
  
 
 /**
@@ -23,7 +28,7 @@ const BASE_EX = new BaseEx();
  * 
  * @see: https://docs.python.org/3/library/hashlib.html
  */
-export default class BrowserSHAObj {
+class SHAObj {
 
     #algorithm = null;
     #bits = null;
@@ -50,7 +55,9 @@ export default class BrowserSHAObj {
             throw new TypeError(`Available algorithms are: '${ALGORITHMS.join(", ")}'.`);
         }
 
-        this.#addConverters();
+        if (BASE_EX) {
+            this.#addConverters();
+        }
     }
 
     /**
@@ -85,7 +92,7 @@ export default class BrowserSHAObj {
      * Additionally an input can be provided, which 
      * gets passed to the 'update' method.
      * @param {string|number} algorithm - The parameter must contain one of the numbers (1/256/384/512), eg: SHA-1, sha256, 384, ... 
-     * @param {*} input - Input gets converted to bytes and processed by window.crypto.subtle.digest. 
+     * @param {*} input - Input gets converted to bytes and processed by crypto.subtle.digest. 
      * @returns {Object} - A SHAObj instance.
      */
     static async new(algorithm="SHA-256", input=null) {
@@ -151,7 +158,7 @@ export default class BrowserSHAObj {
      * shaObj.update(1); shaObj.update(2) which is not the same
      * as shaObj.update(1+2))
      * 
-     * @param {*} input - Input gets converted to bytes and processed by window.crypto.subtle.digest.
+     * @param {*} input - Input gets converted to bytes and processed by crypto.subtle.digest.
      * @param {boolean} replace - If true, the input is not concatenated with former input. 
      */
     async update(input, replace=false) {
@@ -161,6 +168,9 @@ export default class BrowserSHAObj {
         } else if (ArrayBuffer.isView(input)) {
             input = new Uint8Array(input.buffer);
         } else {
+            if (!BASE_EX) {
+                throw new TypeError("You need BaseEx if you like to digest anything other than byte-like input.");
+            }
             input = BASE_EX.byteConverter.encode(input, "uint8");
         }
 
@@ -190,13 +200,13 @@ export default class BrowserSHAObj {
         }
 
         // hash the input
-        this.#digest = await window.crypto.subtle.digest(this.#algorithm, finalInput);
+        this.#digest = await CRYPTO.subtle.digest(this.#algorithm, finalInput);
     }
 
 
     /**
      * Shortcut to 'update(input, true)'.
-     * @param {*} input - Input gets converted to bytes and processed by window.crypto.subtle.digest. 
+     * @param {*} input - Input gets converted to bytes and processed by crypto.subtle.digest. 
      */
     async replace(input) {
         await this.update(input, true);
@@ -204,13 +214,23 @@ export default class BrowserSHAObj {
 
 
     /**
-     * Returns the current digest as an ArrayBuffer;
+     * Returns the current digest as an ArrayBuffer.
      * @returns {ArrayBuffer}
      */
     digest() {
         return this.#digest;
     }
 
+    /**
+     * Returns the current digest as a hexadecimal string.
+     * @returns {string}
+     */
+    hexdigest() {
+        if (!this.#digest) {
+            return null;
+        }
+        return [...new Uint8Array(this.#digest)].map(b => b.toString(16).padStart(2, "0")).join("");
+    }
 
     /**
      * Appends BaseEx encoders to the returned object for the ability
@@ -221,10 +241,6 @@ export default class BrowserSHAObj {
         const detach = (arr, str) => arr.splice(arr.indexOf(str), 1);
         const capitalize = str => str.charAt(0).toUpperCase().concat(str.slice(1));
 
-        this.hexdigest = () => this.#digest
-            ? BASE_EX.base16.encode(this.#digest)
-            : null;
-        
         const converters = Object.keys(BASE_EX);
         this.basedigest = {
             toSimpleBase: {}
@@ -251,3 +267,5 @@ export default class BrowserSHAObj {
             : null;
     }
 }
+
+module.exports = SHAObj;

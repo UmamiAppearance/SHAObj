@@ -1451,9 +1451,9 @@ class BaseTemplate {
 /**
  * [BaseEx|Base1 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-1.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -1607,9 +1607,9 @@ class Base1 extends BaseTemplate {
 /**
  * [BaseEx|Base16 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-16.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -1695,9 +1695,9 @@ class Base16 extends BaseTemplate {
 /**
  * [BaseEx|Base32 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-32.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -1800,9 +1800,9 @@ class Base32 extends BaseTemplate {
 /**
  * [BaseEx|Base58 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-58.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -1950,9 +1950,9 @@ class Base58 extends BaseTemplate{
 /**
  * [BaseEx|Base64 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-64.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -2038,9 +2038,9 @@ class Base64 extends BaseTemplate {
 /**
  * [BaseEx|UUencode Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/uuencode.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -2242,9 +2242,9 @@ const ees = () => {
 /**
  * [BaseEx|Base85 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-85.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -2365,9 +2365,9 @@ class Base85 extends BaseTemplate {
 /**
  * [BaseEx|Base91 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-91.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0 AND BSD-3-Clause (Base91, Copyright (c) 2000-2006 Joachim Henke)
+ * @license MIT AND BSD-3-Clause (Base91, Copyright (c) 2000-2006 Joachim Henke)
  */
 
 /**
@@ -2598,9 +2598,9 @@ class Base91 extends BaseTemplate {
 /**
  * [BaseEx|LEB128 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/leb-128.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -2763,9 +2763,9 @@ class LEB128 extends BaseTemplate {
 /**
  * [BaseEx|Ecoji Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/ecoji.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0 OR Apache-2.0
+ * @license MIT OR Apache-2.0
  * @see https://github.com/keith-turner/ecoji
  */
 
@@ -2812,7 +2812,7 @@ class Ecoji extends BaseTemplate {
         // predefined settings
         this.padding = true;
         this.padCharAmount = 5;
-        this.version = "emojis_v1";
+        this.version = "emojis_v2";
         
         // mutable extra args
         this.isMutable.padding = true;
@@ -3105,9 +3105,9 @@ class Ecoji extends BaseTemplate {
 /**
  * [BaseEx|Base2048 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-2048.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0 AND MIT (Base2048, Copyright (c) 2017 qntm)
+ * @license MIT
  */
 
 /**
@@ -3283,9 +3283,9 @@ class Base2048 extends BaseTemplate {
 /**
  * [BaseEx|SimpleBase Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/simple-base.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 
@@ -3383,9 +3383,9 @@ let DP=20,RM=1,MAX_DP=1e6,NE=-7,PE=21,STRICT=!1,NAME="[big.js] ",INVALID=NAME+"I
 /**
  * [BaseEx|BasePhi Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-phi.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 /**
@@ -3720,9 +3720,9 @@ class BasePhi extends BaseTemplate {
 /**
  * [BaseEx|Byte Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/byte-converter.js}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 // Endianness of the system
@@ -3838,9 +3838,9 @@ class ByteConverter {
 /**
  * [BaseEx]{@link https://github.com/UmamiAppearance/BaseExJS}
  *
- * @version 0.6.1
+ * @version 0.7.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0 AND BSD-3-Clause (only regarding Base91, Copyright (c) 2000-2006 Joachim Henke)
+ * @license MIT
  */
 
 /**
@@ -3899,15 +3899,18 @@ class BaseEx {
 }
 
 /**
- * [BrowserSHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
+ * [SHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
  *
- * @version 0.3.3
+ * @version 1.0.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license GPL-3.0
  */
 
 const ALGORITHMS = ["SHA-1", "SHA-256", "SHA-384", "SHA-512"];
 const BASE_EX = new BaseEx();
+const CRYPTO = typeof window !== "undefined"
+    ? window.crypto
+    : globalThis.crypto;
  
 
 /**
@@ -3921,7 +3924,7 @@ const BASE_EX = new BaseEx();
  * 
  * @see: https://docs.python.org/3/library/hashlib.html
  */
-class BrowserSHAObj {
+class SHAObj {
 
     #algorithm = null;
     #bits = null;
@@ -3983,7 +3986,7 @@ class BrowserSHAObj {
      * Additionally an input can be provided, which 
      * gets passed to the 'update' method.
      * @param {string|number} algorithm - The parameter must contain one of the numbers (1/256/384/512), eg: SHA-1, sha256, 384, ... 
-     * @param {*} input - Input gets converted to bytes and processed by window.crypto.subtle.digest. 
+     * @param {*} input - Input gets converted to bytes and processed by crypto.subtle.digest. 
      * @returns {Object} - A SHAObj instance.
      */
     static async new(algorithm="SHA-256", input=null) {
@@ -4049,7 +4052,7 @@ class BrowserSHAObj {
      * shaObj.update(1); shaObj.update(2) which is not the same
      * as shaObj.update(1+2))
      * 
-     * @param {*} input - Input gets converted to bytes and processed by window.crypto.subtle.digest.
+     * @param {*} input - Input gets converted to bytes and processed by crypto.subtle.digest.
      * @param {boolean} replace - If true, the input is not concatenated with former input. 
      */
     async update(input, replace=false) {
@@ -4088,13 +4091,13 @@ class BrowserSHAObj {
         }
 
         // hash the input
-        this.#digest = await window.crypto.subtle.digest(this.#algorithm, finalInput);
+        this.#digest = await CRYPTO.subtle.digest(this.#algorithm, finalInput);
     }
 
 
     /**
      * Shortcut to 'update(input, true)'.
-     * @param {*} input - Input gets converted to bytes and processed by window.crypto.subtle.digest. 
+     * @param {*} input - Input gets converted to bytes and processed by crypto.subtle.digest. 
      */
     async replace(input) {
         await this.update(input, true);
@@ -4150,4 +4153,4 @@ class BrowserSHAObj {
     }
 }
 
-export { BrowserSHAObj as default };
+export { SHAObj as default };

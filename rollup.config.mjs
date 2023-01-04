@@ -14,28 +14,28 @@ const selectiveTerser = terser({
 
 
 export default {
-    input: "src/index.js",
+    input: "src/sha-obj.js",
     output: [ 
         {   
             format: "iife",
-            name: "BrowserSHAObj",
-            file: "dist/BrowserSHAObj.iife.js"
+            name: "SHAObj",
+            file: "dist/SHAObj.iife.js"
         },
         {   
             format: "iife",
-            name: "BrowserSHAObj",
-            file: "dist/BrowserSHAObj.iife.min.js",
+            name: "SHAObj",
+            file: "dist/SHAObj.iife.min.js",
             plugins: [selectiveTerser]
         },
         {   
             format: "es",
-            name: "BrowserSHAObj",
-            file: "dist/BrowserSHAObj.esm.js"
+            name: "SHAObj",
+            file: "dist/SHAObj.esm.js"
         },
         {   
             format: "es",
-            name: "BrowserSHAObj",
-            file: "dist/BrowserSHAObj.esm.min.js",
+            name: "SHAObj",
+            file: "dist/SHAObj.esm.min.js",
             plugins: [selectiveTerser]
         },
     ]
