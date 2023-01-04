@@ -3,7 +3,7 @@
  *
  * @version 1.0.0
  * @author UmamiAppearance [mail@umamiappearance.eu]
- * @license GPL-3.0
+ * @license MIT
  */
 
 import { BaseEx } from "base-ex";
