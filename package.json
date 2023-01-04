@@ -38,6 +38,6 @@
     "eslint": "^8.29.0",
     "http-server": "^14.1.1",
     "no-bro-cote": "^0.2.7",
-    "rollup": "^3.7.1"
+    "rollup": "^3.9.1"
   }
 }
