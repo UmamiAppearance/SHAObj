@@ -1,10 +1,10 @@
-# BrowserSHAObj
+# SHAObj
 
-[![License](https://img.shields.io/github/license/UmamiAppearance/BrowserSHAObj?color=009911&style=for-the-badge)](./LICENSE)
-[![npm](https://img.shields.io/npm/v/browser-sha-obj?color=%23009911&style=for-the-badge)](https://www.npmjs.com/package/browser-sha-obj)
+[![License](https://img.shields.io/github/license/UmamiAppearance/SHAObj?color=009911&style=for-the-badge)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/sha-obj?color=%23009911&style=for-the-badge)](https://www.npmjs.com/package/sha-obj)
 
 
-**BrowserSHAObj** creates a SHA-(1/256/384/512) object. It is very closely related to [pythons hashlib](https://docs.python.org/3/library/hashlib.html) in its methods and features. It provides an easy access to the ``Crypto.subtle`` method provided by modern browsers and node.js.  
+**SHAObj** creates a SHA-(1/256/384/512) object. It is very closely related to [pythons hashlib](https://docs.python.org/3/library/hashlib.html) in its methods and features. It provides an easy access to the ``Crypto.subtle`` method provided by modern browsers and node.js.  
   
 Optionally it possible to get multiple different digest methods with a little help of [BaseEx](https://github.com/UmamiAppearance/BaseExJS). **BaseEx** also enables the feature to feed the Object with not just byte-like input but almost any type available in JavaScript. 
 
@@ -68,7 +68,7 @@ import SHAObj from "./path/SHAObj.esm.min.js";
 
 ##### esm from CDN (jsdelivr)
 ```js
-import SHAObj from "https://cdn.jsdelivr.net/npm/browser-sha-obj@latest/dist/SHAObj.esm.min.js"
+import SHAObj from "https://cdn.jsdelivr.net/npm/sha-obj@latest/dist/SHAObj.esm.min.js"
 ```
 
 ##### iife script tag
@@ -78,7 +78,7 @@ import SHAObj from "https://cdn.jsdelivr.net/npm/browser-sha-obj@latest/dist/SHA
 
 ##### iife script tag from CDN (jsdelivr)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/browser-sha-obj@latest/dist/SHAObj.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sha-obj@latest/dist/SHAObj.iife.min.js"></script>
 ```
 
 ### Creating an instance    
@@ -120,16 +120,16 @@ const sha512 = await BrowserSHAObj.new("SHA-512", "Hello World!");
 
 #### Static
 
-##### ``BrowserSHAObj.algorithmsAvailable()``
+##### ``SHAObj.algorithmsAvailable()``
 A set containing the names of the hash algorithms that are available.
 
-##### ``BrowserSHAObj.algorithmsGuaranteed()``
-Added for the sake of completeness in terms of compatibility with [pythons hashlib](https://docs.python.org/3/library/hashlib.html). Here it is simply pointing to [``algorithmsAvailable``](#browsershaobjalgorithmsavailable).
+##### ``SHAObj.algorithmsGuaranteed()``
+Added for the sake of completeness in terms of compatibility with [pythons hashlib](https://docs.python.org/3/library/hashlib.html). Here it is simply pointing to [``algorithmsAvailable``](#shaobjalgorithmsavailable).
 
-##### ``BrowserSHAObj.new(algorithm, input)``
+##### ``SHAObj.new(algorithm, input)``
 Asynchronously creates a new instance. Optionally takes the ``algorithm`` as the first parameter, also an optional ``input`` which can be provided as the second parameter, and gets passed to the [``update``](#updateinput-replacefalse) method.
 
-##### ``BrowserSHAObj.baseEx``
+##### ``SHAObj.baseEx``
 A [BaseEx Instance](https://github.com/UmamiAppearance/BaseExJS#available-converterscharsets) for the possibility to manually convert (byte) representations.
 
 #### Instance
@@ -161,7 +161,7 @@ Return the digest of the data passed to the [``update``](#updateinput-replacefal
 Like [``digest``](#digest) except the digest is returned as a string of double length, containing only hexadecimal digits. This may be used (as one of many options) to exchange the value safely in non-binary environments.
 
 ##### ``basedigest`` _(object)_
-Provides many different methods to covert the digest into different base representations. Take a look at the [live-examples](https://umamiappearance.github.io/BrowserSHAObj/examples/live-examples.html#base-representations), to see it in action.  
+Provides many different methods to covert the digest into different base representations. Take a look at the [live-examples](https://umamiappearance.github.io/SHAObj/examples/live-examples.html#base-representations), to see it in action.  
 Every ``basedigest`` optionally takes additional [BaseEx Parameters](https://github.com/UmamiAppearance/BaseExJS#options).
 
 ##### ``copy()``
@@ -169,7 +169,7 @@ Async method to return a copy/clone of the hash object. This can be used to effi
 
 
 ## Examples
-[Here](https://umamiappearance.github.io/BrowserSHAObj/examples/live-examples.html) you can find many live-examples. To get a better idea of a possible use case, take a look at the [Online SHA Checksum Calculator](https://umamiappearance.github.io/BrowserSHAObj/examples/calculator.html).
+[Here](https://umamiappearance.github.io/SHAObj/examples/live-examples.html) you can find many live-examples. To get a better idea of a possible use case, take a look at the [Online SHA Checksum Calculator](https://umamiappearance.github.io/SHAObj/examples/calculator.html).
 
 
 ## License
