@@ -1,6 +1,6 @@
 {
   "name": "sha-obj",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JavaScript implementation of SHA (1/256/384/512) checksum calculation for the browser and node. [Crypto.subtle]",
   "browser": "./dist/BrowserSHAObj.esm.js",
   "main": "./cjs/sha-obj.cjs",
