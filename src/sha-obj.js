@@ -9,7 +9,17 @@
 import { BaseEx } from "base-ex";
 
 const ALGORITHMS = ["SHA-1", "SHA-256", "SHA-384", "SHA-512"];
-const BASE_EX = BaseEx ? new BaseEx() : undefined;
+
+let BASE_EX;
+if (typeof BaseEx !== "undefined") {
+    if ("BaseEx" in BaseEx) {
+        BASE_EX = new BaseEx.BaseEx();
+    } else {
+        BASE_EX = new BaseEx();
+    }
+}
+
+
 const CRYPTO = typeof window !== "undefined"
     ? window.crypto
     : globalThis.crypto;

@@ -10,7 +10,7 @@
         
         <script type="module">
             //import BrowserSHAObj from "../src/index.js";
-            import BrowserSHAObj from "../dist/BrowserSHAObj.esm.min.js";
+            import BrowserSHAObj from "../dist/sha-obj-bex.esm.min.js";
 
             window.BrowserSHAObj = BrowserSHAObj;
             import liveExamples from "https://umamiappearance.github.io/JSLiveExamples/dist/js-live-examples.esm.min.js";
@@ -120,7 +120,9 @@
                     <template class="live-example">
                         <h1>Creating instances, with different algorithms.</h1>
                         
-                        <script data-run="true">
+                        <meta data-run="true">
+
+                        <script >
                             const sha1 = new BrowserSHAObj("SHA-1");
                             await sha1.update("Hello World!!!");
                             console.log("SHA-1:  ", sha1.hexdigest());
@@ -147,7 +149,9 @@
                     <template class="live-example">
                         <h1>.update() & byte concatenation</h1>
                         
-                        <script data-run="true">
+                        <meta data-run="true">
+
+                        <script >
                             // True for concatenation:
                             const shaObjA = await BrowserSHAObj.new("SHA-1", "Hello");
                             await shaObjA.update(" World!!!");
@@ -169,7 +173,9 @@
                     <template class="live-example">
                         <h1>Base Representations</h1>
                         
-                        <script data-run="true">
+                        <meta data-run="true">
+
+                        <script >
                             const reprObj = await BrowserSHAObj.new("SHA-1", "Hello World!!!");
                             console.log(
                                 "toBytes:",
