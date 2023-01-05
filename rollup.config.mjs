@@ -43,7 +43,7 @@ const makeBuild = (name, plugins) => {
             },
         ],
 
-        plugins: plugins
+        plugins
     };
 };
 
