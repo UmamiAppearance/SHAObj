@@ -19,17 +19,12 @@ if (typeof BaseEx !== "undefined") {
 }
 
 
-const CRYPTO = typeof window !== "undefined"
-    ? window.crypto
-    : globalThis.crypto;
- 
-
 /**
- * Creates a SHA-(1-512) object for the browser.
+ * Creates a SHA-(1-512) object for JavaScript.
  * It is very closely related to pythons hashlib
  * in its methods and features.
  * 
- * It provides an easy access to the browsers Crypto.subtle
+ * It provides an easy access to the global Crypto.subtle
  * method, and also makes it possible to get multiple
  * different digest methods.
  * 
@@ -207,7 +202,7 @@ class SHAObj {
         }
 
         // hash the input
-        this.#digest = await CRYPTO.subtle.digest(this.#algorithm, finalInput);
+        this.#digest = await globalThis.crypto.subtle.digest(this.#algorithm, finalInput);
     }
 
 

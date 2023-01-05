@@ -4,52 +4,81 @@
 [![npm](https://img.shields.io/npm/v/browser-sha-obj?color=%23009911&style=for-the-badge)](https://www.npmjs.com/package/browser-sha-obj)
 
 
-**BrowserSHAObj** creates a SHA-(1/256/384/512) object. It is very closely related to [pythons hashlib](https://docs.python.org/3/library/hashlib.html) in its methods and features. It provides an easy access to the browsers ``Crypto.subtle`` method, and also makes it possible to get multiple different digest methods with a little help of [BaseEx](https://github.com/UmamiAppearance/BaseExJS).
+**BrowserSHAObj** creates a SHA-(1/256/384/512) object. It is very closely related to [pythons hashlib](https://docs.python.org/3/library/hashlib.html) in its methods and features. It provides an easy access to the ``Crypto.subtle`` method provided by modern browsers and node.js.  
+  
+Optionally it possible to get multiple different digest methods with a little help of [BaseEx](https://github.com/UmamiAppearance/BaseExJS). **BaseEx** also enables the feature to feed the Object with not just byte-like input but almost any type available in JavaScript. 
 
 ## Installation
 
 ### GitHub
 ```sh
-git clone https://github.com/UmamiAppearance/BrowserSHAObj.git
+git clone https://github.com/UmamiAppearance/SHAObj.git
 ```
 
 ### npm
 ```sh
-nmp install browser-sha-obj
+nmp install sha-obj
 ```
 
 ## Builds
-You can find builds in [dist](https://github.com/UmamiAppearance/BrowserSHAObj/tree/main/dist). If you want to build by yourself run:
+You can find builds in [dist](https://github.com/UmamiAppearance/SHAObj/tree/main/dist). Builds include versions with BaseEx build in and without the library. Two types for both kinds are available ([esm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and [iife](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)), plus a minified version of each.  
+  
+If you want to build it by yourself run:
 
 ```sh
 npm run build
 ``` 
 
-Two types are available ([esm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and [iife](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)), plus a minified version of each. 
-* ``BrowserSHAObj.esm.js``
-* ``BrowserSHAObj.esm.min.js``
-* ``BrowserSHAObj.iife.js``
-* ``BrowserSHAObj.iife.min.js``
+#### Builds with BaseEx
+* [``sha-obj-bex.esm.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj-bex.esm.js)
+* [``sha-obj-bex.esm.min.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj-bex.esm.min.js)
+* [``sha-obj-bex.iife.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj-bex.iife.js)
+* [``sha-obj-bex.iife.min.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj-bex.iife.min.js)
+
+#### Builds without BaseEx
+* [``sha-obj.esm.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj.esm.js)
+* [``sha-obj.esm.min.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj.esm.min.js)
+* [``sha-obj.iife.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj.iife.js)
+* [``sha-obj.iife.min.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj.iife.min.js)
 
 
 ## Usage
 
 ### Importing
-BrowserSHAObj is a ESM module and exported as _default_. Importing works as follows:
-```js
-// esm
-import BrowserSHAObj from "./path/BrowserSHAObj.esm.min.js";
 
-// esm from CDN (jsdelivr)
-import BrowseSHAObj from "https://cdn.jsdelivr.net/npm/browser-sha-obj@latest/dist/BrowserSHAObj.esm.min.js"
+#### node.js
+
+##### esm
+```js
+import SHAObj from "sha-obj";
 ```
 
-```html
-<!-- script tag -->
-<script src="./path/BrowserSHAObj.iife.min.js"></script>
+##### cjs
+```js
+const SHAObj = require("sha-obj");
+```
 
-<!-- script tag from CDN (jsdelivr)-->
-<script src="https://cdn.jsdelivr.net/npm/browser-sha-obj@latest/dist/BrowserSHAObj.iife.min.js"></script>
+
+#### Browser
+
+##### esm
+```js
+import SHAObj from "./path/SHAObj.esm.min.js";
+```
+
+##### esm from CDN (jsdelivr)
+```js
+import SHAObj from "https://cdn.jsdelivr.net/npm/browser-sha-obj@latest/dist/SHAObj.esm.min.js"
+```
+
+##### iife script tag
+```html
+<script src="./path/SHAObj.iife.min.js"></script>
+```
+
+##### iife script tag from CDN (jsdelivr)
+```html
+<script src="https://cdn.jsdelivr.net/npm/browser-sha-obj@latest/dist/SHAObj.iife.min.js"></script>
 ```
 
 ### Creating an instance    
@@ -79,7 +108,7 @@ const sha256 = await BrowserSHAObj.new();
 const sha512 = await BrowserSHAObj.new("SHA-512");
 ```
 
-The method is asynchronous to allow you to associate a message in one go.
+As the method is asynchronous it allows you to associate a message in one go.
 ```js
 // SHA-512
 const sha512 = await BrowserSHAObj.new("SHA-512", "Hello World!");
@@ -144,4 +173,8 @@ Async method to return a copy/clone of the hash object. This can be used to effi
 
 
 ## License
-This work is licensed under [GPL-3.0](https://opensource.org/licenses/GPL-3.0).
+
+[MIT](https://opensource.org/licenses/MIT)
+
+Copyright (c) 2023, UmamiAppearance
+
