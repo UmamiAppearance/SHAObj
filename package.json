@@ -48,6 +48,6 @@
     "rollup-plugin-import-manager": "^0.3.7"
   },
   "dependencies": {
-    "base-ex": "^0.7.0"
+    "base-ex": "^0.7.1"
   }
 }
