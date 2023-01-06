@@ -29,13 +29,13 @@ If you want to build it by yourself run:
 npm run build
 ``` 
 
-#### Builds with BaseEx
+#### Builds with BaseEx _(any desired input/several digest methods)_
 * [``sha-obj-bex.esm.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj-bex.esm.js)
 * [``sha-obj-bex.esm.min.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj-bex.esm.min.js)
 * [``sha-obj-bex.iife.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj-bex.iife.js)
 * [``sha-obj-bex.iife.min.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj-bex.iife.min.js)
 
-#### Builds without BaseEx
+#### Builds without BaseEx _(byte like input/hexdigest)_
 * [``sha-obj.esm.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj.esm.js)
 * [``sha-obj.esm.min.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj.esm.min.js)
 * [``sha-obj.iife.js``](https://raw.githubusercontent.com/UmamiAppearance/SHAObj/main/dist/sha-obj.iife.js)
@@ -88,9 +88,9 @@ The constructor takes one argument for the ``algorithm`` which is set to ``SHA-2
 * ``SHA-384``
 * ``SHA-512``
 
-There a two possible methods available to create an instance:
+There a two possible ways available to create an instance:
 
-#### new operator
+#### the new operator
 ```js
 // default, SHA-256
 const sha256 = new SHAObj();
@@ -99,7 +99,7 @@ const sha256 = new SHAObj();
 const sha512 = new SHAObj("SHA-512");
 ```
 
-#### new method
+#### the new method
 ```js
 // default, SHA-256
 const sha256 = await SHAObj.new();
@@ -117,7 +117,6 @@ const sha512 = await SHAObj.new("SHA-512", "Hello World!");
 
 ### Methods and Properties
 
-
 #### Static
 
 ##### ``SHAObj.algorithmsAvailable()``
@@ -129,18 +128,18 @@ Added for the sake of completeness in terms of compatibility with [pythons hashl
 ##### ``SHAObj.new(algorithm, input)``
 Asynchronously creates a new instance. Optionally takes the ``algorithm`` as the first parameter, also an optional ``input`` which can be provided as the second parameter, and gets passed to the [``update``](#updateinput-replacefalse) method.
 
-##### ``SHAObj.baseEx``
+##### ``SHAObj.baseEx`` _[object]_
 A [BaseEx Instance](https://github.com/UmamiAppearance/BaseExJS#available-converterscharsets) for the possibility to manually convert (byte) representations.
 
 #### Instance
 
-##### ``digestSize`` _(property)_
+##### ``digestSize``  _[property]_
 The size of the resulting hash in bytes.
 
-##### ``blockSize`` _(property)_
+##### ``blockSize`` _[property]_
 The internal block size of the hash algorithm in bytes.
 
-##### ``name`` _(property)_
+##### ``name`` _[property]_
 The canonical name of this hash, always uppercase and always suitable as a parameter to create another hash of this type.
 
 ##### ``update(input[, replace=false])``
@@ -160,7 +159,7 @@ Return the digest of the data passed to the [``update``](#updateinput-replacefal
 ##### ``hexdigest()``
 Like [``digest``](#digest) except the digest is returned as a string of double length, containing only hexadecimal digits. This may be used (as one of many options) to exchange the value safely in non-binary environments.
 
-##### ``basedigest`` _(object)_
+##### ``basedigest`` _[object]_
 Provides many different methods to covert the digest into different base representations. Take a look at the [live-examples](https://umamiappearance.github.io/SHAObj/examples/live-examples.html#base-representations), to see it in action.  
 Every ``basedigest`` optionally takes additional [BaseEx Parameters](https://github.com/UmamiAppearance/BaseExJS#options).
 

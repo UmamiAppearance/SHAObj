@@ -1,7 +1,7 @@
 {
   "name": "sha-obj",
-  "version": "1.0.1",
-  "description": "JavaScript implementation of SHA (1/256/384/512) checksum calculation for the browser and node. [Crypto.subtle]",
+  "version": "1.0.2",
+  "description": "JavaScript implementation of SHA-(1/256/384/512) checksum calculation for the browser and node. [Crypto.subtle]",
   "browser": "./dist/BrowserSHAObj.esm.js",
   "main": "./cjs/sha-obj.cjs",
   "module": "./src/sha-obj.js",
@@ -29,8 +29,10 @@
     "SHA-384",
     "SHA-512",
     "checksum",
+    "cryptography",
     "hash-functions",
-    "subtlecrypto"
+    "subtlecrypto",
+    "Web Crypto API"
   ],
   "author": "UmamiAppearance",
   "license": "MIT",
@@ -48,6 +50,6 @@
     "rollup-plugin-import-manager": "^0.3.7"
   },
   "dependencies": {
-    "base-ex": "^0.7.0"
+    "base-ex": "^0.7.1"
   }
 }

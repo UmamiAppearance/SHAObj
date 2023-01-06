@@ -4,7 +4,7 @@ var SHAObj = (function () {
     /**
      * [SHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
      *
-     * @version 1.0.1
+     * @version 1.0.2
      * @author UmamiAppearance [mail@umamiappearance.eu]
      * @license MIT
      */
