@@ -47,7 +47,7 @@
     "http-server": "^14.1.1",
     "no-bro-cote": "^0.2.10",
     "rollup": "^3.9.1",
-    "rollup-plugin-import-manager": "^0.3.7"
+    "rollup-plugin-import-manager": "^0.5.0"
   },
   "dependencies": {
     "base-ex": "^0.7.1"
