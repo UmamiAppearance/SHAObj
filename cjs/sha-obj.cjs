@@ -5,7 +5,7 @@ var baseEx = require('base-ex');
 /**
  * [SHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
