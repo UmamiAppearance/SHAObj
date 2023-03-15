@@ -63,22 +63,22 @@ const SHAObj = require("sha-obj");
 
 ##### esm
 ```js
-import SHAObj from "./path/SHAObj.esm.min.js";
+import SHAObj from "./path/sha-obj-bex.esm.min.js";
 ```
 
 ##### esm from CDN (jsdelivr)
 ```js
-import SHAObj from "https://cdn.jsdelivr.net/npm/sha-obj@latest/dist/SHAObj.esm.min.js"
+import SHAObj from "https://cdn.jsdelivr.net/npm/sha-obj@latest/dist/sha-obj-bex.esm.min.js"
 ```
 
 ##### iife script tag
 ```html
-<script src="./path/SHAObj.iife.min.js"></script>
+<script src="./path/sha-obj-bex.iife.min.js"></script>
 ```
 
 ##### iife script tag from CDN (jsdelivr)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/sha-obj@latest/dist/SHAObj.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sha-obj@latest/dist/sha-obj-bex.iife.min.js"></script>
 ```
 
 ### Creating an instance    
