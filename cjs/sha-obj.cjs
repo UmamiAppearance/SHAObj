@@ -5,7 +5,7 @@ var baseEx = require('base-ex');
 /**
  * [SHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -278,3 +278,4 @@ class SHAObj {
 }
 
 module.exports = SHAObj;
+//# sourceMappingURL=sha-obj.cjs.map
