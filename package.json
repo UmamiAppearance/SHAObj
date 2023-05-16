@@ -1,6 +1,6 @@
 {
   "name": "sha-obj",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "JavaScript implementation of SHA-(1/256/384/512) checksum calculation for the browser and node. [Crypto.subtle]",
   "browser": "./dist/BrowserSHAObj.esm.js",
   "main": "./cjs/sha-obj.cjs",
@@ -16,7 +16,8 @@
     "lint": "eslint ./src/*",
     "lint:fix": "eslint ./src/* --fix",
     "start": "http-server -a localhost -o ./examples/live-examples.html",
-    "test": "no-bro-cote"
+    "test": "remembrance && no-bro-cote",
+    "test:dev": "no-bro-cote"
   },
   "repository": {
     "type": "git",
@@ -42,14 +43,15 @@
   },
   "homepage": "https://github.com/UmamiAppearance/SHAObj#readme",
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.0",
-    "eslint": "^8.36.0",
+    "@rollup/plugin-terser": "^0.4.2",
+    "eslint": "^8.40.0",
     "http-server": "^14.1.1",
-    "no-bro-cote": "^0.2.14",
-    "rollup": "^3.20.0",
-    "rollup-plugin-import-manager": "^0.5.3"
+    "no-bro-cote": "^0.2.17",
+    "remembrance": "^0.2.0",
+    "rollup": "^3.21.8",
+    "rollup-plugin-import-manager": "^0.6.2"
   },
   "dependencies": {
-    "base-ex": "^0.7.5"
+    "base-ex": "^0.7.6"
   }
 }

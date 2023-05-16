@@ -5,10 +5,11 @@ var baseEx = require('base-ex');
 /**
  * [SHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
  *
- * @version 1.0.4
+ * @version 1.0.5
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
+
 
 const ALGORITHMS = ["SHA-1", "SHA-256", "SHA-384", "SHA-512"];
 
