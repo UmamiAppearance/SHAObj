@@ -7,9 +7,10 @@
  */
 class BytesInput {
     static toBytes(input) {
-        if (ArrayBuffer.isView(input)) {
+        if (ArrayBuffer.isView(input) && !(typeof Buffer !== "undefined" && input instanceof Buffer)) {
             input = input.buffer;
-        } 
+        }
+        
         return [new Uint8Array(input), false, "bytes"];
     }
 }
@@ -222,14 +223,18 @@ class SmartInput {
         let negative = false;
         let type = "bytes";
         
-        // Buffer:
+        // ArrayBuffer:
         if (input instanceof ArrayBuffer) {
             inputUint8 = new Uint8Array(input.slice());
         }
 
-        // TypedArray or DataView:
+        // TypedArray/DataView or node Buffer:
         else if (ArrayBuffer.isView(input)) {
-            inputUint8 = new Uint8Array(input.buffer.slice());
+            if (typeof Buffer !== "undefined" && input instanceof Buffer) {
+                inputUint8 = new Uint8Array(input);
+            } else {
+                inputUint8 = new Uint8Array(input.buffer.slice());
+            }
         }
         
         // String:
@@ -976,6 +981,7 @@ class BaseConverter {
         }
 
         this.decPadVal = decPadVal;
+        this.powers = {};
     }
 
     /**
@@ -1149,10 +1155,9 @@ class BaseConverter {
             return new Uint8Array(0);
         }
 
-    
         let bs = this.bsDec;
-        const byteArray = new Array();
-
+        const byteArray = [];
+         
         [...inputBaseStr].forEach(c => {
             const index = charset.indexOf(c);
             if (index > -1) { 
@@ -1161,6 +1166,7 @@ class BaseConverter {
                 throw new DecodingError(c);
             }
         });
+
         
         let padChars;
 
@@ -1185,17 +1191,23 @@ class BaseConverter {
         // the blocksize.
 
         for (let i=0, l=byteArray.length; i<l; i+=bs) {
-            
+
             // Build a subarray of bs bytes.
             let n = 0n;
 
             for (let j=0; j<bs; j++) {
-                n += BigInt(byteArray[i+j]) * this.pow(bs-1-j);
+                const exp = bs-1-j;
+                const pow = this.powers[exp] || (() => {
+                    this.powers[exp] = BigInt(this.pow(exp));
+                    return this.powers[exp];
+                })();
+
+                n += BigInt(byteArray[i+j]) * pow;
             }
             
             // To store the output chunks, initialize a
             // new default array.
-            const subArray256 = new Array();
+            const subArray256 = [];
 
             // The subarray gets converted into a bs*8-bit 
             // binary number "n", most significant byte 
@@ -1223,7 +1235,7 @@ class BaseConverter {
             
             // The subarray gets concatenated with the
             // main array.
-            b256Array = b256Array.concat(subArray256);
+            b256Array.push(...subArray256);
         }
 
         // Remove padded zeros (or in case of LE all leading zeros)
@@ -1328,6 +1340,7 @@ class BaseTemplate {
         this.padding = false;
         this.padCharAmount = 0;
         this.padChars = {}; 
+        this.nonASCII = false;
         this.signed = false;
         this.upper = null;
         if (appendUtils) this.utils = new Utils(this);
@@ -1451,7 +1464,7 @@ class BaseTemplate {
 /**
  * [BaseEx|Base1 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-1.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -1608,7 +1621,7 @@ class Base1 extends BaseTemplate {
 /**
  * [BaseEx|Base16 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-16.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -1697,7 +1710,7 @@ class Base16 extends BaseTemplate {
 /**
  * [BaseEx|Base32 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-32.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -1803,7 +1816,7 @@ class Base32 extends BaseTemplate {
 /**
  * [BaseEx|Base58 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-58.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -1954,7 +1967,7 @@ class Base58 extends BaseTemplate{
 /**
  * [BaseEx|Base64 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-64.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -2043,7 +2056,7 @@ class Base64 extends BaseTemplate {
 /**
  * [BaseEx|UUencode Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/uuencode.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -2053,13 +2066,14 @@ class Base64 extends BaseTemplate {
  * BaseEx UUencode Converter.
  * ------------------------
  * 
- * This is a base64 converter. Various input can be 
- * converted to a base64 string or a base64 string
+ * This is a UUencoder/UUdecoder. Various input can be 
+ * converted to a UUencoded string or a UUencoded string
  * can be decoded into various formats.
  * 
  * Available charsets are:
  *  - default
- *  - urlsafe
+ *  - original
+ *  - xx
  */
 class UUencode extends BaseTemplate {
 
@@ -2090,6 +2104,9 @@ class UUencode extends BaseTemplate {
 
         // predefined settings
         this.padding = true;
+        this.buffering = false;
+        this.utils.converterArgs.buffering = ["nobuffering", "buffering"];
+        this.isMutable.buffering = true;
         this.header = false;
         this.utils.converterArgs.header = ["noheader", "header"];
         this.isMutable.header = true;
@@ -2112,9 +2129,11 @@ class UUencode extends BaseTemplate {
 
             const charset = this.charsets[settings.version];
             const outArray = [...output];
+            const outLen = outArray.length;
+            settings.options.lineWrap = 0;
             
             
-            if (settings.header) {
+            if (settings.header && !settings.buffering) {
                 const permissions = settings.options.permissions || een();
                 const fileName = settings.options.file || ees();
                 output = `begin ${permissions} ${fileName}\n`;
@@ -2122,31 +2141,34 @@ class UUencode extends BaseTemplate {
                 output = "";
             }
 
-            // repeatedly take 60 chars from the output until it is empty 
-            for (;;) {
-                const lArray = outArray.splice(0, 60);
+            // repeatedly take 60 chars from the output 
+            for (let start=0; start<outLen; start+=60) {
+                const end = start+60;
+                const lArray = outArray.slice(start, end);
                 
                 // if all chars are taken, remove eventually added pad zeros
-                if (!outArray.length) { 
+                if (end >= outLen) { 
                     const byteCount = this.converter.padChars(lArray.length) - zeroPadding;
                     
                     // add the the current chars plus the leading
                     // count char
                     output += `${charset.at(byteCount)}${lArray.join("")}\n`;
-                    break;
                 }
                 
                 // add the the current chars plus the leading
                 // count char ("M" for default charsets) 
-                output += `${charset.at(45)}${lArray.join("")}\n`;
+                else {
+                    output += `${charset.at(45)}${lArray.join("")}\n`;
+                }
             }
 
-            output += `${charset.at(0)}\n`;
-
-            if (settings.header) {
-                output += "\nend";
+            if (!settings.buffering) {
+                output += `${charset.at(0)}\n`;
+                
+                if (settings.header) {
+                    output += "end\n";
+                }
             }
-
 
             return output;
         };
@@ -2168,7 +2190,7 @@ class UUencode extends BaseTemplate {
         const format = ({ input, settings }) => {
 
             const charset = this.charsets[settings.version];
-            const lines = input.trim().split("\n");
+            const lines = input.trim().split(/\r?\n/);
             const inArray = [];
             
             if ((/^begin/i).test(lines.at(0))) {
@@ -2186,8 +2208,26 @@ class UUencode extends BaseTemplate {
                 inArray.push(...lArray);
 
                 if (byteCount !== 45) {
-                    padChars = this.converter.padChars(lArray.length) - byteCount;
+                    let len = lArray.length;
+
+                    // fix probably missing spaces for original charset
+                    if (settings.version === "original") {
+                        const expectedLen = calcUUStrLen(byteCount);
+                        while (len < expectedLen) {
+                            len++;
+                            inArray.push(" ");
+                        }
+                    }
+
+                    padChars = this.converter.padChars(len) - byteCount;
                     break;
+                }
+
+                // fix probably missing spaces for original charset
+                else if (lArray.length !== 60 && settings.version === "original") {
+                    while (inArray.length % 60) {
+                        inArray.push(" ");
+                    }
                 }
             }
 
@@ -2245,10 +2285,18 @@ const ees = () => {
     return `${pick(name)}.${pick(ext)}`;
 };
 
+const calcUUStrLen = byteCount => {
+    const len = byteCount / 3 * 4;
+    if (len % 4) {
+        return Math.floor(len/4) * 4 + 4;
+    }
+    return len;
+};
+
 /**
  * [BaseEx|Base85 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-85.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -2372,7 +2420,7 @@ class Base85 extends BaseTemplate {
 /**
  * [BaseEx|Base91 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-91.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT AND BSD-3-Clause (Base91, Copyright (c) 2000-2006 Joachim Henke)
  */
@@ -2606,7 +2654,7 @@ class Base91 extends BaseTemplate {
 /**
  * [BaseEx|LEB128 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/leb-128.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -2772,7 +2820,7 @@ class LEB128 extends BaseTemplate {
 /**
  * [BaseEx|Ecoji Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/ecoji.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT OR Apache-2.0
  * @see https://github.com/keith-turner/ecoji
@@ -2822,6 +2870,7 @@ class Ecoji extends BaseTemplate {
         // predefined settings
         this.padding = true;
         this.padCharAmount = 5;
+        this.nonASCII = true;
         this.version = "emojis_v2";
         
         // mutable extra args
@@ -2984,7 +3033,7 @@ class Ecoji extends BaseTemplate {
             const lastChar = inArray.at(-1);
             let skipLast = false;
 
-            for (let i=0; i<this.padChars[version].length-1; i++) {                
+            for (let i=0, l=this.padChars[version].length-1; i<l; i++) {                
                 if (lastChar === this.padChars[version].at(i)) {
                     inArray.splice(-1, 1, charset.at(i << 8));
                     input = inArray.join("");
@@ -3115,7 +3164,7 @@ class Ecoji extends BaseTemplate {
 /**
  * [BaseEx|Base2048 Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-2048.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -3155,6 +3204,7 @@ class Base2048 extends BaseTemplate {
         this.padCharAmount = 8;
         this.hasSignedMode = true;
         this.littleEndian = false;
+        this.nonASCII = true;
         
         // apply user settings
         this.utils.validateArgs(args, true);
@@ -3294,7 +3344,7 @@ class Base2048 extends BaseTemplate {
 /**
  * [BaseEx|SimpleBase Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/simple-base.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -3395,7 +3445,7 @@ let DP=20,RM=1,MAX_DP=1e6,NE=-7,PE=21,STRICT=!1,NAME="[big.js] ",INVALID=NAME+"I
 /**
  * [BaseEx|BasePhi Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/base-phi.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -3733,7 +3783,7 @@ class BasePhi extends BaseTemplate {
 /**
  * [BaseEx|Byte Converter]{@link https://github.com/UmamiAppearance/BaseExJS/blob/main/src/converters/byte-converter.js}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -3852,7 +3902,7 @@ class ByteConverter {
 /**
  * [BaseEx]{@link https://github.com/UmamiAppearance/BaseExJS}
  *
- * @version 0.7.6
+ * @version 0.8.1
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
@@ -3894,6 +3944,7 @@ class BaseEx {
         this.base64 = new Base64("default", outputType);
         this.base64_urlsafe = new Base64("urlsafe", outputType);
         this.uuencode = new UUencode("default", outputType);
+        this.uuencode_original = new UUencode("original", outputType);
         this.xxencode = new UUencode("xx", outputType);
         this.base85_adobe = new Base85("adobe", outputType);
         this.base85_ascii = new Base85("ascii85", outputType);
@@ -3916,7 +3967,7 @@ class BaseEx {
 /**
  * [SHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
  *
- * @version 1.0.5
+ * @version 1.0.6
  * @author UmamiAppearance [mail@umamiappearance.eu]
  * @license MIT
  */
