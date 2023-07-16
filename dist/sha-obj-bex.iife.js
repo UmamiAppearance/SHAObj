@@ -3970,7 +3970,7 @@ var SHAObj = (function () {
     /**
      * [SHAObj]{@link https://github.com/UmamiAppearance/BrowserSHAObj}
      *
-     * @version 1.0.6
+     * @version 1.0.7
      * @author UmamiAppearance [mail@umamiappearance.eu]
      * @license MIT
      */
